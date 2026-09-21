@@ -1686,13 +1686,17 @@ function renderQuickUserSwitch(){
 }
 
 // ===== 视角钻取系统 =====
-let viewMode = localStorage.getItem('dash_viewMode') || '';
+let viewMode = '';
 let filterUser = ''; // 全部数据视图下，点击员工后设置为该员工名
 function initViewMode(){
-  if(!viewMode){
-    viewMode = isAdmin() ? 'all' : 'mine';
-    localStorage.setItem('dash_viewMode', viewMode);
+  // 视角偏好按代号隔离，避免上一个登录者（如管理 X）的全部数据被员工继承
+  const key = 'dash_viewMode_' + currentCode;
+  let saved = currentCode ? localStorage.getItem(key) : '';
+  if(!saved){
+    saved = isAdmin() ? 'all' : 'mine';
+    if(currentCode) localStorage.setItem(key, saved);
   }
+  viewMode = saved;
 }
 function toggleViewMode(){
   if(filterUser){
@@ -1703,7 +1707,7 @@ function toggleViewMode(){
     return;
   }
   viewMode = viewMode === 'all' ? 'mine' : 'all';
-  localStorage.setItem('dash_viewMode', viewMode);
+  localStorage.setItem('dash_viewMode_' + currentCode, viewMode);
   updateViewTag();
   renderAll();
 }
