@@ -116,7 +116,7 @@ td{padding:6px 8px;border-bottom:1px solid var(--border);white-space:nowrap;over
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--primary-light)}
 .tag{display:inline-block;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:500}
-.tag.green{background:var(--green-light);color:var(--green)}.tag.blue{background:var(--blue-light);color:var(--blue)}.tag.orange{background:var(--orange-light);color:var(--orange)}.tag.red{background:var(--red-light);color:var(--red)}.tag.purple{background:var(--primary-light);color:var(--primary)}.tag.cyan{background:#ecfeff;color:var(--cyan)}.tag.gray{background:#f3f4f6;color:var(--text2)}
+.tag.green{background:var(--green-light);color:var(--green)}.tag.blue{background:var(--blue-light);color:var(--blue)}.tag.orange{background:var(--orange-light);color:var(--orange)}.tag.red{background:var(--red-light);color:var(--red)}.tag.purple{background:var(--primary-light);color:var(--primary)}.tag.cyan{background:#ecfeff;color:var(--cyan)}.tag.gray{background:#f3f4f6;color:var(--text2)}.tag.indigo{background:#eef2ff;color:#4f46e5}
 .table-wrap{max-height:380px;overflow-y:auto}
 .table-wrap::-webkit-scrollbar{width:5px}
 .table-wrap::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
@@ -174,6 +174,39 @@ html.in-tg .modal-overlay{padding:8px}
 html.in-tg .modal{max-width:480px;max-height:94vh}
 html.in-tg .chart{height:200px}
 @media(max-width:480px){html.in-tg .header,html.in-tg .checkin-bar,html.in-tg .tabs,html.in-tg .tab-panel,html.in-tg .footer{max-width:100%}}
+/* ===== AI 助手浮窗 ===== */
+#aiFab{position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;border:none;font-size:23px;cursor:pointer;box-shadow:0 8px 24px rgba(236,72,153,.42);z-index:1500;display:none;align-items:center;justify-content:center;transition:transform .2s}
+body.unlocked #aiFab{display:flex}
+#aiFab:hover{transform:scale(1.08) rotate(-6deg)}
+#aiPanel{position:fixed;right:18px;bottom:18px;width:384px;max-width:calc(100vw - 24px);height:600px;max-height:calc(100vh - 36px);background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.28);z-index:1600;display:none;flex-direction:column;overflow:hidden;border:1px solid var(--border)}
+#aiPanel.show{display:flex;animation:slideUp .25s ease}
+#aiPanel .ai-head{padding:12px 14px;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;display:flex;align-items:center;gap:8px}
+#aiPanel .ai-head .ai-ttl{flex:1;font-size:14px;font-weight:700;letter-spacing:.3px}
+#aiPanel .ai-head button{background:rgba(255,255,255,.22);border:none;color:#fff;width:27px;height:27px;border-radius:50%;cursor:pointer;font-size:13px;flex-shrink:0}
+#aiPanel .ai-head button:hover{background:rgba(255,255,255,.38)}
+#aiQuick{padding:9px 10px;display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:#faf7fc;max-height:74px;overflow-y:auto}
+.ai-chip{font-size:11px;padding:5px 11px;border-radius:20px;border:1px solid var(--border);background:#fff;cursor:pointer;color:var(--text2);line-height:1.3}
+.ai-chip:hover{border-color:#ec4899;color:#db2777}
+#aiBody{flex:1;overflow-y:auto;padding:12px 13px;display:flex;flex-direction:column;gap:9px;background:#fff}
+.ai-msg{max-width:94%;padding:9px 12px;border-radius:13px;font-size:12px;line-height:1.66;white-space:normal;word-break:break-word}
+.ai-msg.user{align-self:flex-end;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;border-bottom-right-radius:4px}
+.ai-msg.bot{align-self:flex-start;background:#f4f5f8;color:var(--text);border-bottom-left-radius:4px}
+.ai-msg.bot b{color:#db2777}
+.ai-msg.err{align-self:flex-start;background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+.ai-msg .ai-actions{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap}
+.ai-mini{font-size:10.5px;padding:4px 10px;border-radius:7px;border:1px solid #d1d5db;background:#fff;cursor:pointer;color:#374151}
+.ai-msg.user .ai-mini{background:rgba(255,255,255,.18);color:#fff;border-color:rgba(255,255,255,.45)}
+.ai-typing{align-self:flex-start;font-size:11px;color:var(--text3);padding:4px 6px}
+.ai-typing span{display:inline-block;animation:aiDot 1.2s infinite}
+.ai-typing span:nth-child(2){animation-delay:.2s}.ai-typing span:nth-child(3){animation-delay:.4s}
+@keyframes aiDot{0%,60%,100%{opacity:.2}30%{opacity:1}}
+#aiInputBar{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border);background:#faf7fc}
+#aiInput{flex:1;padding:9px 13px;border:1px solid var(--border);border-radius:20px;font-size:12px;outline:none}
+#aiInput:focus{border-color:#ec4899}
+#aiSend{width:38px;height:38px;border-radius:50%;border:none;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;cursor:pointer;font-size:15px;flex-shrink:0}
+@media(max-width:640px){#aiFab{right:12px;bottom:12px}#aiPanel{right:8px;bottom:8px;width:calc(100% - 16px);height:72vh}}
+@media(min-width:481px){html.in-tg #aiFab{right:calc(50% - 240px + 12px)}html.in-tg #aiPanel{right:calc(50% - 240px + 8px)}}
+html.in-tg #aiFab{right:12px;bottom:12px}html.in-tg #aiPanel{right:8px;bottom:8px;width:calc(100% - 16px);height:70vh}
 
 /* 打卡区域 */
 .checkin-bar{background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);color:#fff;padding:10px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
@@ -1006,7 +1039,7 @@ const STICKERS = {
 // ===== 云端API配置 =====
 // 部署Google Apps Script后，把Web App URL填在这里
 // 部署教程见同目录「部署指南.md」
-const API_URL = 'https://script.google.com/macros/s/AKfycbyeY_-kNx0mypMEtClxyGBdbEZJ91rUfUSiS_-z7AT3vLoAayTtaRQ5C5wEbnew0TWE/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzhllA1Xg6CPRUyszqK4G3uSVFBLvEQomVkh1bEjEmhBgecfbSQ7lKKYaKnF5dzmwCLPQ/exec';
 const API_KEY = 'tkops_2026_x9k2';
 const USE_API = API_URL.length > 0;
 
@@ -1192,7 +1225,10 @@ function openModal(name){
   if(type){buildForm(type,null);const t=document.querySelector('#modal-'+name+' .modal-header h3');if(t&&MODAL_TITLE[name])t.textContent=MODAL_TITLE[name];}
   document.getElementById('modal-'+name).classList.add('show');
 }
-function closeModal(name){document.getElementById('modal-'+name).classList.remove('show');}
+function closeModal(name){
+  if(name){const _el=document.getElementById('modal-'+name);if(_el)_el.classList.remove('show');}
+  else document.querySelectorAll('.modal-overlay.show').forEach(function(m){m.classList.remove('show');});
+}
 document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show');}));
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===name));
@@ -1353,7 +1389,7 @@ function editCustomerFromDetail(){
 function renderAll(){renderExpense();renderCustomerPanel();renderWork();renderAccounts();renderIncome();renderOverview();renderQuickUserSwitch();renderAttList();}
 
 function renderExpense(){renderUserCards('exp-user-cards','expenses','amount',function(e){return e.type!=='收入';});
-  const expenses=filterByView(DB.get('expenses')).filter(function(e){return e.type!=='收入';});
+  const expenses=filterByView(DB.get('expenses'),'expenses').filter(function(e){return e.type!=='收入';});
   const total=expenses.reduce((s,e)=>s+e.amount,0);
   const days=new Set(expenses.map(e=>e.date)).size;
   document.getElementById('exp-total').innerHTML=Math.round(total).toLocaleString()+'<span class="unit">RM</span>';
@@ -1361,18 +1397,18 @@ function renderExpense(){renderUserCards('exp-user-cards','expenses','amount',fu
   document.getElementById('exp-max').innerHTML=(expenses.length?Math.round(Math.max(...expenses.map(e=>e.amount))):0).toLocaleString()+'<span class="unit">RM</span>';
   document.getElementById('exp-avg').innerHTML=(days?Math.round(total/days):0)+'<span class="unit">RM</span>';
   // 最近账单
-  const catColors={'生活食宿':'#fffbeb','个人借支':'#faf5ff','工作设备':'#ecfdf5','生活物品':'#ecfeff','软件费用':'#eff6ff','理发':'#fdf2f8','其他':'#f3f4f6'};
+  const catColors={'伙食费用':'#fffbeb','生活物资':'#ecfeff','房租':'#eef2ff','软件费用':'#eff6ff','工作设备':'#ecfdf5','个人借支':'#faf5ff','其他开支':'#f3f4f6'};
   document.getElementById('exp-recent').innerHTML=expenses.slice(0,10).map(e=>{const dn=escHtml(e.desc||e.category||'?'),dc=escHtml(e.category||''),dt=escHtml(e.date||'');return `<div class="recent-item"><div class="recent-icon" style="background:${catColors[e.category]||'#e5e7eb'}">${dn.charAt(0)}</div><div class="recent-info"><div class="recent-name">${dn}</div><div class="recent-meta">${dt} · ${dc}</div></div><div class="recent-amount expense">-RM ${Math.round(e.amount).toLocaleString()}</div></div>`;}).join('')||'<div class="empty-row">—</div>';
   // 分类占比
   const catMap={};expenses.forEach(e=>{catMap[e.category]=(catMap[e.category]||0)+e.amount;});
-  const catColorMap={'生活食宿':'#d97706','个人借支':'#7c3aed','工作设备':'#059669','生活物品':'#0891b2','软件费用':'#2563eb','理发':'#db2777','其他':'#9ca3af'};
+  const catColorMap={'伙食费用':'#d97706','生活物资':'#0891b2','房租':'#4f46e5','软件费用':'#2563eb','工作设备':'#059669','个人借支':'#7c3aed','其他开支':'#9ca3af'};
   const c1=initChart('exp-chart-cat');if(c1)c1.setOption({tooltip:{trigger:'item',...tooltipStyle,formatter:p=>p.name+'<br/>RM '+Number(p.value).toLocaleString()+' ('+p.percent+'%)'},legend:{bottom:0,textStyle:{color:'#6b7280',fontSize:10},itemWidth:10,itemHeight:10},series:[{type:'pie',radius:['40%','65%'],center:['50%','45%'],itemStyle:{borderColor:'#fff',borderWidth:2},label:{show:false},data:Object.keys(catMap).map(c=>({value:catMap[c],name:c,itemStyle:{color:catColorMap[c]||'#9ca3af'}}))}]});
   // 趋势
   const byDate={};expenses.forEach(e=>{byDate[e.date]=(byDate[e.date]||0)+e.amount;});
   const dates=Object.keys(byDate).sort();
   const c2=initChart('exp-chart-trend');if(c2)c2.setOption({tooltip:{trigger:'axis',...tooltipStyle},grid:{left:45,right:15,top:10,bottom:25},xAxis:{type:'category',data:dates.map(d=>d.slice(5)),...axisStyle},yAxis:{type:'value',...axisStyle},series:[{type:'bar',data:dates.map(d=>byDate[d]),barWidth:'50%',itemStyle:{color:'#d97706',borderRadius:[3,3,0,0]}}]});
   // 表格
-  const expTag={'生活食宿':'orange','个人借支':'purple','工作设备':'green','生活物品':'cyan','软件费用':'blue','理发':'red','其他':'gray'};
+  const expTag={'伙食费用':'orange','生活物资':'cyan','房租':'indigo','软件费用':'blue','工作设备':'green','个人借支':'purple','其他开支':'gray'};
   renderDataTable('expenses','exp-table',expenses);
 }
 
@@ -1521,7 +1557,7 @@ function renderIncome(){renderUserCards('inc-user-cards','incomes','amount');
 
 // 数据洞察分析
 function renderInsights(){
-  const expenses = filterByView(DB.get('expenses')).filter(e=>e.type!=='收入');
+  const expenses = filterByView(DB.get('expenses'),'expenses').filter(e=>e.type!=='收入');
   const incomes = filterByView(DB.get('incomes'));
   const customers = filterByView(DB.get('customers'));
   const worklogs = filterByView(DB.get('worklogs'));
@@ -1592,7 +1628,7 @@ function renderInsights(){
 
 
 function renderOverview(){
-  const expenses=filterByView(DB.get('expenses')).filter(e=>e.type!=='收入');
+  const expenses=filterByView(DB.get('expenses'),'expenses').filter(e=>e.type!=='收入');
   const incomes=filterByView(DB.get('incomes'));
   const customers=filterByView(DB.get('customers'));
   const worklogs=filterByView(DB.get('worklogs'));
@@ -1760,7 +1796,9 @@ function updateViewTag(){
     tag.style.color = '#92400e';
   }
 }
-function filterByView(data){
+function filterByView(data,type){
+  // 支出为团队公用数据：任何账号、任何视角都看全部公共开支，不按录入人过滤
+  if(type==='expenses') return data;
   if(filterUser) return data.filter(d=>d.createdBy===filterUser);
   if(viewMode === 'all') return data;
   return data.filter(d=>d.createdBy===currentName);
@@ -1794,7 +1832,7 @@ const FIELD_CONFIG = {
     id:{type:'hidden',label:'ID',table:false,form:false},
     date:{type:'date',label:'日期',required:true},
     type:{type:'select',label:'收支类型',options:['支出','收入'],tag:true,def:'支出'},
-    category:{type:'select',label:'分类',options:['生活食宿','个人借支','工作设备','生活物品','软件费用','理发','其他'],tag:true},
+    category:{type:'select',label:'分类',options:['伙食费用','生活物资','房租','软件费用','工作设备','个人借支','其他开支'],tag:true},
     desc:{type:'text',label:'用途描述',placeholder:'如：晚餐排骨、房租',wide:true,minWidth:150},
     amount:{type:'number',label:'金额(RM)',unit:'RM',bold:true,required:true},
     remark:{type:'text',label:'备注',placeholder:'选填',wide:true},
@@ -1872,7 +1910,7 @@ const FIELD_CONFIG = {
 const TAG_COLORS = {
   '新增客户':'blue','初聊产品':'cyan','考虑中':'orange','有意向':'purple','成交':'green','归档':'gray','垃圾客户':'red',
   '高':'green','中':'orange','低':'gray',
-  '生活食宿':'orange','个人借支':'purple','工作设备':'green','生活物品':'cyan','软件费用':'blue','理发':'red','其他':'gray'
+  '伙食费用':'orange','生活物资':'cyan','房租':'indigo','软件费用':'blue','工作设备':'green','个人借支':'purple','其他开支':'gray'
 };
 
 // 动态获取表单字段（按 FIELD_CONFIG，排除 hidden/form:false）
@@ -2002,7 +2040,7 @@ function calcFromRm(){const r=parseFloat(document.getElementById('calcRm').value
 function renderCalculator(){
   const rateEl=document.getElementById('calcRate');if(rateEl&&!rateEl.value)rateEl.value=getRate();
   const rate=getCalcRate();
-  const expenses=filterByView(DB.get('expenses')).filter(e=>e.type!=='收入');
+  const expenses=filterByView(DB.get('expenses'),'expenses').filter(e=>e.type!=='收入');
   const incomes=filterByView(DB.get('incomes'));
   const totalExp=expenses.reduce((s,e)=>s+Number(e.amount||0),0);
   const totalInc=incomes.reduce((s,i)=>s+Number(i.amount||0),0);
@@ -2079,15 +2117,28 @@ const FIRST_OFF_REMINDERS = [
   "干饭时间到！天大地大吃饭最大，工作先靠边站～",
   "休息休息～让脑子放空一下，第二段再战三百回合",
   "到点啦，去吃点热乎的，别让晚饭等太久哦",
-  "第一段收工！吃饱喝足，元气满满地回来呀～"
+  "第一段收工！吃饱喝足，元气满满地回来呀～",
+  "第一段达成！干饭不积极思想有问题，冲呀🍱",
+  "到饭点啦，肚子已经在催了，去吃点好的犒劳一下自己～",
+  "歇歇眼睛歇歇手，好好吃饭，第二段才能满血复活💪"
+];
+const CHECK_DATA_REMINDERS = [
+  "下班前小检查🔍 今天的客户跟进、成交、支出都记好了吗？",
+  "收尾时间～对一眼数据，再写句今日总结，明天的你会超省心📋",
+  "放大镜提醒：有没有漏掉的客户回复或账单？补齐再下班呀",
+  "花一分钟核一核：新增客户、成交 U、支出 RM，齐了就安心～",
+  "今日数据盘点时间到，顺便给明天定个小目标吧🎯",
+  "走之前做个小收尾：数据补全、明天的跟进排好，稳稳的✅"
 ];
 const FINAL_OFF_REMINDERS = [
-  "快下班啦～对个账：客户跟进了吗？支出记了吗？数据齐了吗🔍",
-  "收工小仪式：看看今天的成果，再给明天定个小目标～",
-  "坚持到现在超厉害的！走之前记得把数据补全哦",
-  "下班倒计时～检查检查再检查，明天的你会感谢现在的你",
-  "辛苦一天啦！把工作收个尾，安心去睡个好觉🌙",
-  "最后一步：客户、成交、支出都核对一遍，然后安心下班～"
+  "下班打卡成功！今天也有在认真发光呀，抱抱努力的自己🧸",
+  "辛苦啦辛苦啦～电脑合上，烦恼也一起合上，晚安呀🌙",
+  "叮～今日份搞钱已结束，快去充电，明天继续当销冠！",
+  "下班咯！今天的你超棒的，洗个热水澡奖励自己吧🛁",
+  "收工收工～客户跑不掉的，觉要睡饱，明天才有力气爆单😴",
+  "打卡下班！愿你今晚好梦，梦里全是成交的好消息💤",
+  "好啦，工作到此为止～剩下的交给明天的你，他可厉害了✨",
+  "夜深啦，小泰迪都打哈欠了，你也快去睡吧，晚安安🧸🌙"
 ];
 
 let checkedIn = false;
@@ -2249,7 +2300,7 @@ function checkReminders(){
   }
   // 第二段下班前30分钟提醒（04:00 检查数据、汇总、规划明天）
   if(mins>=240&&mins<245&&!localStorage.getItem('dash_reminded_final_'+T)){
-    showReminder('📋','即将下班',getRandomMsg(FINAL_OFF_REMINDERS),'magnifier');
+    showReminder('📋','即将下班',getRandomMsg(CHECK_DATA_REMINDERS),'magnifier');
     localStorage.setItem('dash_reminded_final_'+T,'1');
     return;
   }
@@ -2435,7 +2486,173 @@ window.addEventListener('resize',()=>{Object.values(charts).forEach(c=>c.resize(
 
   console.log('[桌面端] 原生应用模式已加载');
 })();
+
+// ================= AI 助手（经 GAS 代理调用硅基流动，密钥仅在后端） =================
+const AIA=(function(){
+  let history=[];
+  const $=function(id){return document.getElementById(id);};
+  const TAB_NAME={expense:'支出统计',customer:'客户管理',work:'工作分析',income:'收入统计',overview:'概览'};
+  const SYS='你是马来西亚 TikTok 跨境小团队的运营助手，团队通过 TikTok 引流到 WhatsApp 成交。必须严格基于我给出的【真实数据快照】回答，数据里没有的数字一律不要编造，金额一律取整数。口径：成交、收入、客户名下所有金额（含赠送福利）单位为 U(USDT)；支出单位为 RM(马币)；U 与 RM 分开统计，绝不互相抵扣或混算。工作时间为 15:00 到次日 04:30（21:00-22:30 休息）。代号 M、C 为员工，X 为管理且不参与团队业绩汇总。用简体中文，简洁、接地气、可执行，多用短句和清单，语气可以活泼一点；需要计算时写出简要过程。';
+  function curTab(){const t=document.querySelector('.tab.active');return t?t.dataset.tab:'overview';}
+  function n(v){const x=Number(v);return isNaN(x)?0:Math.round(x);}
+  function daysAgo(d){const x=new Date();x.setDate(x.getDate()-d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');}
+  function groupSum(rows,key,valKey){const m={};(rows||[]).forEach(function(r){const k=r[key]||'未分类';m[k]=(m[k]||0)+(Number(r[valKey])||0);});return Object.keys(m).map(function(k){return [k,Math.round(m[k])];}).sort(function(a,b){return b[1]-a[1];});}
+  function scopeName(){if(typeof filterUser!=='undefined'&&filterUser)return filterUser+' 的数据';if(typeof viewMode!=='undefined'&&viewMode==='all')return '全部数据';return '我的数据（'+currentName+'）';}
+  function buildContext(){
+    const T=today(),c7=daysAgo(7),c30=daysAgo(30),L=[];
+    L.push('日期 '+T+'；当前用户 '+currentName+'（代号 '+currentCode+'，'+(isAdmin()?'管理':'员工')+'）；视角：'+scopeName()+'；汇率 1 U = '+getRate()+' RM（仅资金计算器换算用，不要拿它抵扣支出）。');
+    const view=function(a,t){return (typeof filterByView==='function')?filterByView(a,t):a;};
+    const tab=curTab();
+    if(tab==='expense'){
+      const all=view(DB.get('expenses'),'expenses').filter(function(e){return e.type!=='收入';});
+      const r30=all.filter(function(e){return (e.date||'')>=c30;}),r7=all.filter(function(e){return (e.date||'')>=c7;}),rt=all.filter(function(e){return (e.date||'')===T;});
+      const sum=function(a){return a.reduce(function(s,e){return s+(Number(e.amount)||0);},0);};
+      L.push('【支出·RM】近30天 '+n(sum(r30))+' RM / '+r30.length+' 笔；近7天 '+n(sum(r7))+' RM；今日 '+n(sum(rt))+' RM / '+rt.length+' 笔。');
+      L.push('近30天分类：'+(groupSum(r30,'category','amount').slice(0,6).map(function(x){return x[0]+' '+x[1];}).join('，')||'暂无'));
+      L.push('最近5笔：'+(all.slice(0,5).map(function(e){return (e.date||'').slice(5)+' '+(e.category||'')+' '+(e.desc||'')+' '+n(e.amount)+'RM';}).join('；')||'暂无'));
+    } else if(tab==='customer'){
+      const cs=view(DB.get('customers'));
+      const stages=['新增客户','初聊产品','考虑中','有意向','成交','归档','垃圾客户'];
+      L.push('【客户】总数 '+cs.length+'；阶段：'+stages.map(function(s){return s+' '+cs.filter(function(c){return c.stage===s;}).length;}).join('，')+'；今日新增 '+cs.filter(function(c){return (c.date||'')===T;}).length+'。');
+      const hot=cs.filter(function(c){return c.stage==='有意向'||c.stage==='考虑中';}).slice(0,6).map(function(c){return c.ws+'('+c.stage+(c.relation?('/关系'+c.relation):'')+(c.nextFollow?('/下次跟进'+c.nextFollow):'')+(c.orderAmt?('/已成交'+n(c.orderAmt)+'U'):'')+')';});
+      L.push('优先跟进（考虑中/有意向）：'+(hot.join('，')||'暂无'));
+      L.push('最近5个客户：'+(cs.slice(0,5).map(function(c){return (c.ws||'')+' '+(c.stage||'');}).join('；')||'暂无'));
+    } else if(tab==='work'){
+      const mine=DB.get('worklogs').filter(function(w){return w.createdBy===currentName;});
+      const tw=mine.find(function(w){return w.date===T;});
+      if(tw){L.push('【我今日日报】发作品'+n(tw.posts)+'、注册'+n(tw.register)+'、死号'+n(tw.dead)+'、加客户'+n(tw.addCust)+'、有效引流'+n(tw.leads)+'、初聊'+n(tw.chat)+'、考虑中'+n(tw.consider)+'、有意向'+n(tw.intent)+'、成交'+n(tw.deal)+' / '+n(tw.dealAmt)+'U、归档'+n(tw.archived)+'。备注：'+(tw.remark||'无'));}
+      else{L.push('【我今日日报】今天还没有填写日报。');}
+      const w7=mine.filter(function(w){return (w.date||'')>=c7;});
+      const add=function(f){return n(w7.reduce(function(s,w){return s+(Number(w[f])||0);},0));};
+      L.push('【我近7天合计】发作品'+add('posts')+'、加客户'+add('addCust')+'、引流'+add('leads')+'、初聊'+add('chat')+'、有意向'+add('intent')+'、成交'+add('deal')+' / '+add('dealAmt')+'U。');
+    } else if(tab==='income'){
+      const ic=view(DB.get('incomes'));
+      const r7=ic.filter(function(x){return (x.date||'')>=c7;}),rt=ic.filter(function(x){return (x.date||'')===T;});
+      const sum=function(a){return a.reduce(function(s,x){return s+(Number(x.amount)||0);},0);};
+      L.push('【收入·U】累计 '+n(sum(ic))+' U / '+ic.length+' 笔；近7天 '+n(sum(r7))+' U；今日 '+n(sum(rt))+' U / '+rt.length+' 笔。');
+      L.push('最近5笔：'+(ic.slice(0,5).map(function(x){return (x.date||'').slice(5)+' '+(x.customer||'')+' '+(x.product||'')+' '+n(x.amount)+'U';}).join('；')||'暂无'));
+    } else {
+      const ex=view(DB.get('expenses'),'expenses').filter(function(e){return e.type!=='收入';});
+      const ic=view(DB.get('incomes')),cs=view(DB.get('customers')),wl=view(DB.get('worklogs'));
+      L.push('【团队总览】累计支出 '+n(ex.reduce(function(s,e){return s+(Number(e.amount)||0);},0))+' RM（近30天 '+n(ex.filter(function(e){return (e.date||'')>=c30;}).reduce(function(s,e){return s+(Number(e.amount)||0);},0))+' RM）；累计收入 '+n(ic.reduce(function(s,x){return s+(Number(x.amount)||0);},0))+' U。');
+      L.push('客户 '+cs.length+'：'+['新增客户','初聊产品','考虑中','有意向','成交'].map(function(s){return s+' '+cs.filter(function(c){return c.stage===s;}).length;}).join('，')+'。');
+      const tw=wl.filter(function(w){return w.date===T;});
+      L.push('今日日报 '+tw.length+' 人：'+tw.slice(0,8).map(function(w){return (w.createdBy||'?')+'(加客户'+n(w.addCust)+'/成交'+n(w.deal)+'/'+n(w.dealAmt)+'U)';}).join('，')+'。');
+      L.push('今日考勤记录 '+view(DB.get('attendance')).filter(function(a){return a.date===T;}).length+' 条。');
+    }
+    return L.join('\n');
+  }
+  function chips(){
+    const tab=curTab(),box=$('aiQuick');if(!box)return;
+    const Q={
+      expense:[['分析近30天支出，指出最该省的3项',0],['今天花得合理吗？给明日预算建议',0]],
+      customer:[['盘点客户漏斗，列出今天最该跟进的客户和话术',0],['给考虑中/有意向客户各写一句 WhatsApp 催单话术',0]],
+      work:[['根据我今天的数据写一段工作总结，含明日重点',1],['复盘我近7天工作，指出瓶颈和明天3件最重要的事',0]],
+      income:[['分析成交情况，给出提升转化的3个动作',0]],
+      overview:[['做一次团队经营诊断，指出3个最该处理的问题',0],['给老板一份今日团队简报（关键数字+3句话）',0]]
+    };
+    let list=Q[tab]||Q.overview;
+    if(tab==='customer'&&typeof currentDetailId!=='undefined'&&currentDetailId){list=list.concat([['为当前打开的这个客户写一条跟进话术',0]]);}
+    box.innerHTML='';
+    list.forEach(function(q){const b=document.createElement('button');b.className='ai-chip';b.textContent=q[0];b.onclick=function(){AIA.send(q[0],{fillSummary:!!q[1]});};box.appendChild(b);});
+  }
+  function fmt(s){let h=escHtml(s);h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');h=h.replace(/^#{1,4}\s*/gm,'').replace(/^\s*[-*]\s+/gm,'· ');return h.replace(/\n/g,'<br>');}
+  function addBubble(role,text,opts){
+    const b=document.createElement('div');b.className='ai-msg '+role;
+    if(role==='user'){b.textContent=text;}
+    else{b.innerHTML=fmt(text);
+      const acts=document.createElement('div');acts.className='ai-actions';
+      if(opts&&opts.fillSummary){const f=document.createElement('button');f.className='ai-mini';f.textContent='📝 填入今日日报';f.onclick=function(){AIA.fillSummary(text);};acts.appendChild(f);}
+      const c=document.createElement('button');c.className='ai-mini';c.textContent='📋 复制';c.onclick=function(){AIA.copy(text);};acts.appendChild(c);
+      b.appendChild(acts);
+    }
+    $('aiBody').appendChild(b);$('aiBody').scrollTop=$('aiBody').scrollHeight;return b;
+  }
+  function typing(){const t=document.createElement('div');t.className='ai-typing';t.innerHTML='正在思考<span>●</span><span>●</span><span>●</span>';$('aiBody').appendChild(t);$('aiBody').scrollTop=$('aiBody').scrollHeight;return t;}
+  function callAI(messages){
+    if(typeof API_URL==='undefined'||!API_URL||(typeof USE_API!=='undefined'&&!USE_API)){return Promise.resolve({success:false,error:'未连接云端'});}
+    const ctrl=new AbortController(),to=setTimeout(function(){ctrl.abort();},60000);
+    return fetch(API_URL+'?action=ai&key='+API_KEY,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({messages:messages}),signal:ctrl.signal})
+      .then(function(r){clearTimeout(to);return r.json();})
+      .catch(function(e){clearTimeout(to);return {success:false,error:e.name==='AbortError'?'AI 思考超时（云端冷启动可能较慢，请再试一次）':('网络错误 '+e.message)};});
+  }
+  function welcome(){addBubble('bot','你好 '+currentName+'～我是运营助手 🍭 现在在【'+TAB_NAME[curTab()]+'】，视角：'+scopeName()+'。点下方快捷问题，或直接输入，我会基于真实数据回答，绝不瞎编数字。');}
+  return {
+    open:function(){const p=$('aiPanel');p.classList.add('show');chips();if(!$('aiBody').children.length)welcome();setTimeout(function(){$('aiInput').focus();},120);},
+    close:function(){$('aiPanel').classList.remove('show');},
+    toggle:function(){const p=$('aiPanel');if(p.classList.contains('show'))this.close();else this.open();},
+    clearChat:function(){$('aiBody').innerHTML='';history=[];welcome();chips();},
+    copy:function(t){const done=function(){showToast('已复制');};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(done);}else{done();}},
+    fillSummary:function(text){
+      const w=DB.get('worklogs').find(function(x){return x.date===today()&&x.createdBy===currentName;});
+      if(w){editRecord('worklogs',w.id);}else{openModal('worklog');}
+      setTimeout(function(){
+        const d=document.getElementById('ff-worklogs-date');if(d&&!d.value)d.value=today();
+        const ta=document.getElementById('ff-worklogs-remark');
+        if(ta){const old=ta.value.trim();ta.value=old?old+'\n'+text:text;showToast('已填入今日日报备注，补全数字后保存');}else{showToast('没找到日报备注框，请稍后重试');}
+      },150);
+      this.close();
+    },
+    send:function(text,opts){
+      const inp=$('aiInput');text=(text!=null?text:inp.value).trim();if(!text)return;inp.value='';
+      addBubble('user',text);history.push({role:'user',content:text});
+      const ty=typing();
+      const msgs=[{role:'system',content:SYS+'\n\n【真实数据快照 · '+TAB_NAME[curTab()]+' · '+scopeName()+'】\n'+buildContext()}].concat(history.slice(-9).map(function(m){return {role:m.role,content:m.content};}));
+      callAI(msgs).then(function(j){ty.remove();
+        if(j&&j.success&&j.reply){history.push({role:'assistant',content:j.reply});addBubble('bot',j.reply,{fillSummary:opts&&opts.fillSummary});}
+        else{addBubble('err','AI 暂时没响应：'+((j&&j.error)||'请稍后再试')+'。');}
+      });
+    }
+  };
+})();
+
+// ================= 摸鱼检测（网页端，2 分钟无操作，工作时段、已打卡，每天最多 2 次） =================
+const IDLE_REMINDERS=[
+  '咦，人呢人呢？键盘都开始想你啦，已经两分钟没动静咯～',
+  '摸鱼被我抓包咯！快回客户消息，USDT 要长腿跑啦🐟',
+  '叮咚～你的工位在喊你：快坐好，客户在等你哦☕',
+  '歇够了没呀？伸个大大的懒腰，我们继续冲鸭🍓',
+  '警告警告：摸鱼时长 +2 分钟，再不来订单要被别人抢走啦😆',
+  '小熊悄悄探头：你是不是在刷手机？被我发现啦🐻',
+  '喂喂喂，听到请回答～WhatsApp 里还有客户在等你凯旋！',
+  '眼睛离开屏幕太久啦，回来看一眼哪个客户还没回🔍'
+];
+const WELCOME_BACK=['欢迎回来～刚刚是不是偷偷摸鱼啦😆','回来啦？那我们继续搞钱！','抓到一只回归的小可爱，冲鸭！','欢迎归队，客户们久等啦～','好样的，状态拉满，继续爆单！','咦，回来啦？椅子还热乎着呢😉','休息够了没？客户和订单都在等你翻牌哦～','欢迎回来，小可爱已重新上线，继续冲鸭🚀'];
+(function(){
+  let last=Date.now(),idleOpen=false;
+  const pick=function(a){return a[Math.floor(Math.random()*a.length)];};
+  function $(id){return document.getElementById(id);}
+  function anyOverlay(){return !!document.querySelector('.modal-overlay.show')||$('aiPanel').classList.contains('show')||$('reminderOverlay').classList.contains('show')||$('gate').style.display!=='none'||$('nameGate').style.display!=='none';}
+  function inWork(){const d=new Date(),m=d.getHours()*60+d.getMinutes();return (m>=900&&m<1260)||m>=1350||m<270;}
+  function idleCount(){const v=parseInt(localStorage.getItem('dash_idle_'+today())||'0',10);return isNaN(v)?0:v;}
+  ['mousemove','keydown','click','touchstart','wheel'].forEach(function(ev){document.addEventListener(ev,function(){const gap=Date.now()-last;last=Date.now();if(idleOpen&&gap>2*60*1000){idleOpen=false;try{closeReminder();}catch(e){}showToast(pick(WELCOME_BACK));}},true);});
+  setInterval(function(){
+    if(!document.body.classList.contains('unlocked'))return;
+    if(typeof checkedIn==='undefined'||!checkedIn||!inWork()||anyOverlay())return;
+    if(Date.now()-last<2*60*1000)return;
+    if(idleCount()>=2)return;
+    if(typeof lastReminderTime!=='undefined'&&lastReminderTime&&Date.now()-lastReminderTime<15*60*1000)return;
+    idleOpen=true;localStorage.setItem('dash_idle_'+today(),idleCount()+1);
+    if(typeof lastReminderTime!=='undefined')lastReminderTime=Date.now();
+    showReminder('🐟','摸鱼小雷达',pick(IDLE_REMINDERS),Math.random()<0.5?'coffee':'teddy');
+  },30000);
+  document.addEventListener('keydown',function(e){
+    const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT'||t.isContentEditable))return;
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='A'||e.key==='a')){e.preventDefault();AIA.toggle();return;}
+    if(!e.ctrlKey&&!e.altKey&&!e.metaKey&&/^[1-5]$/.test(e.key)){const tabs=['expense','customer','work','income','overview'];switchTab(tabs[Number(e.key)-1]);}
+  });
+})();
 </script>
 
+<button id="aiFab" title="运营 AI 助手（Ctrl+Shift+A）" onclick="AIA.open()">&#129302;</button>
+<div id="aiPanel" aria-live="polite">
+  <div class="ai-head"><span>&#129302;</span><span class="ai-ttl">运营 AI 助手</span><button onclick="AIA.clearChat()" title="清空对话">&#129529;</button><button onclick="AIA.close()" title="关闭">&#10005;</button></div>
+  <div class="ai-quick" id="aiQuick"></div>
+  <div id="aiBody"></div>
+  <div id="aiInputBar">
+    <input id="aiInput" placeholder="问我运营、客户、数据，或让我写总结…" autocomplete="off">
+    <button id="aiSend" onclick="AIA.send()">&#10148;</button>
+  </div>
+</div>
 </body>
 </html>
